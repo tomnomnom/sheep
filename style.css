@@ -1,4 +1,11 @@
-
+body {
+    font-family: monospace;
+}
 canvas#stage {
   display: none;
+}
+
+div#others img {
+    width: 300px;
+    outline: none;
 }

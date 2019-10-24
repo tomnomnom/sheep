@@ -130,3 +130,18 @@ c.fill()
 
 // image output
 document.querySelector('img#out').src = stage.toDataURL()
+
+const images = [
+    "couple.png",
+    "family.jpg",
+    "jumper.png",
+    "mirror.jpg",
+    "old-and-fat.jpg",
+    "play.png",
+    "procreate-transbg.png",
+    "thoughts.png"
+]
+
+document.querySelector('div#others').innerHTML = images.map(img => `
+    <a href=images/${img}><img src=images/${img}></a>
+`).join('')
