@@ -5,22 +5,22 @@ const w = stage.width
 const h = stage.height
 
 c.fillStyle = '#EFEFEF'
-c.strokeStyle = '#EFEFEF'
+c.strokeStyle = '#FEFEFE'
 c.lineWidth = w * 0.04
 c.lineCap = 'round'
 
-c.beginPath()
-c.rect(0, 0, w, h)
-c.fillStyle = '#ffffff'
-c.fill()
+//c.beginPath()
+//c.rect(0, 0, w, h)
+//c.fillStyle = '#232323'
+//c.fill()
 
-c.translate(w/2, (h/2)-h*0.04)
+c.translate(w/2, (h/2)-h*0.03)
 
 const arm = (shoulder, length, rotation, left) => {
     left = left? -1 : 1;
     c.save()
     c.beginPath()
-    c.strokeStyle = 'black'
+    c.strokeStyle = '#111111'
     c.translate(shoulder[0], shoulder[1])
     c.rotate(rotation)
     c.moveTo(0,0)
@@ -36,14 +36,12 @@ const arm = (shoulder, length, rotation, left) => {
     c.restore()
 }
 
-arm([-w*0.1, -h*0.07], h*0.27, Math.PI*1.8, true)
-arm([w*0.1, -h*0.07], h*0.27, Math.PI*2.2)
 
 const leg = (hip, length, rotation, left) => {
     left = left? -1 : 1;
     c.save()
     c.beginPath()
-    c.strokeStyle = 'black'
+    c.strokeStyle = '#111111'
     c.translate(hip[0], hip[1])
     c.rotate(rotation)
     c.moveTo(0,0)
@@ -53,12 +51,18 @@ const leg = (hip, length, rotation, left) => {
     c.lineTo(-w*0.035*left, -h*0.01-length) // toe
     c.moveTo(0, -length)
     c.lineTo(-w*0.035*left, -h*0.015-length) // toe
+    //c.moveTo(0, -length) 
+    //c.lineTo(w*0.013, -h*0.02-length) // toe
     c.stroke()
     c.restore()
 }
 
-leg([-w*0.07, h*0.1], h*0.33, Math.PI*1.1, true)
-leg([w*0.07, h*0.1], h*0.33, Math.PI*0.9)
+arm([-w*0.12, -h*0.1], h*0.24, Math.PI*1.8, true)
+arm([w*0.12, -h*0.1], h*0.24, Math.PI*2.2)
+
+leg([-w*0.07, h*0.15], h*0.25, Math.PI*1.1, true)
+leg([w*0.07, h*0.15], h*0.25, Math.PI*0.9)
+
 
 const circle = p => {
     const [x, y, r] = p
@@ -91,27 +95,38 @@ const body = [
 ]
 
 // Body outline
-c.fillStyle = 'black'
+c.fillStyle = '#111111'
 body.forEach(circle)
 
-// Body fill
-c.fillStyle = '#FEFEFE'
+// Body clear
+
+c.fillStyle = '#fefefe'
 body.forEach(part => {
     const [x, y, r] = part
-    circle([x, y, r*0.7])
+    c.save()
+    c.beginPath()
+    c.arc(x, y, r*0.7, 0, Math.PI*2)
+    //c.clip()
+    //c.clearRect(-w/2, -h/2, w, h)
+    c.fill()
+    c.restore()
 })
+
+
+
 
 // head
 c.beginPath()
-c.fillStyle = 'black'
-c.ellipse(w*0.015, -h*0.22, w*0.1, w*0.14, Math.PI*0.4, 0, Math.PI*2)
+c.fillStyle = '#111111'
+c.ellipse(w*0.012, -h*0.22, w*0.1, w*0.14, Math.PI*0.4, 0, Math.PI*2)
 c.fill()
 
 // ear
 c.beginPath()
-c.fillStyle = 'black'
-c.ellipse(-w*0.10, -h*0.24, w*0.07, w*0.03, Math.PI*0.39, 0, Math.PI*2)
+c.fillStyle = '#111111'
+c.ellipse(-w*0.097, -h*0.24, w*0.07, w*0.03, Math.PI*0.39, 0, Math.PI*2)
 c.fill()
+
 
 // image output
 document.querySelector('img#out').src = stage.toDataURL()
